@@ -1,0 +1,15 @@
+<html>
+  <head>测试Credential Management</head>
+  <body>
+    <script src="./src/libs/cm.js"></script>
+    <script>
+      let cm = new CM()
+      cm.autoSignIn().then(console.log).catch(console.error)
+      // cm.register({
+      //   password: '123',
+      //   id: 'test'
+      // }).then(console.log).catch(console.error)
+    </script>
+  </body>
+
+</html>
