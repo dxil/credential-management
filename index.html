@@ -127,7 +127,10 @@
       
       function loginWithFederated(code) {
         fetch(githubTokenUrl+`?client_id=${client_id}&client_secret=${client_secret}&code=${code}`, {
-          mode: 'cors'
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+          },
+          mode: 'no-cors'
         }).then(response => {
           return response.text()
         }).then(data => {
@@ -145,7 +148,7 @@
           headers: {
             'Access-Control-Allow-Origin': '*',
           },
-          mode: 'cors'
+          mode: 'no-cors'
         }).then(response => {
           return response.json()
         }).then(data => {
