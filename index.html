@@ -173,7 +173,7 @@
 
       $('#loginWithPassword').click(loginWithPassword)
       $('#signOut').click(function () {
-        location.herf = 'http://127.0.0.1:3001'
+        location.herf = location.host
         sessionStorage.removeItem('userName')
       })
       $('#register').click(function () {
@@ -184,7 +184,7 @@
           id: userName
         }).then((res) => {
           loginSuccess(res.cred.id)
-        }).catch(showLogin)
+        }).catch(console.warn)
       })
       // https://github.com/login/oauth/authorize?client_id=myclient_id&scope=user:email
       $('#signWithGithub').click(gOauth)
