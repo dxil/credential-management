@@ -13,18 +13,18 @@ const utils = {
 /* eslint-disable */
 
 class CM {
-  constructor (opts = {}) {
+  constructor () {
+    this._isPasswordCredentialSupport = !!window.PasswordCredential
+    this._isFederatedCredentialSupport = !!window.FederatedCredential
+  }
+  autoSignIn (opts = {}) {
+    if (!this._isPasswordCredentialSupport && !this._isFederatedCredentialSupport) return utils.returnError({code: -1000, msg: 'not support Credential Management'})
+
     this._opts = {
       usePassword: opts.usePassword || true, // 是否使用密码自动登录
       providers: opts.providers || [], // 联合登录的账号地址
       mediation: opts.mediation || 'optional' // 是否静默登录
     }
-
-    this._isPasswordCredentialSupport = !!window.PasswordCredential
-    this._isFederatedCredentialSupport = !!window.FederatedCredential
-  }
-  autoSignIn () {
-    if (!this._isPasswordCredentialSupport && !this._isFederatedCredentialSupport) return utils.returnError({code: -1000, msg: 'not support Credential Management'})
 
     // Actual Credential Management API call to get credential object
     return navigator.credentials.get({
@@ -66,6 +66,10 @@ class CM {
       default:
         return utils.returnError({code: -1001, msg: 'not support this way sign'})
     }
+  }
+  removeAutoSign () {
+    if (!navigator.credentials.preventSilentAccess) return utils.returnError({code: -1000, msg: 'not supportsign'})
+    navigator.credentials.preventSilentAccess()
   }
   _registerWithFederated (data) {
     if (!this._isFederatedCredentialSupport) return utils.returnError({code: -1003, msg: 'not support Federated sign'})
