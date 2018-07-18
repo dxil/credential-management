@@ -127,14 +127,11 @@
       }
       
       function loginWithFederated(code) {
-        fetch(githubTokenUrl+`?client_id=${client_id}&client_secret=${client_secret}&code=${code}`, {
-          headers: {
-            'Access-Control-Allow-Origin': '*',
-          },
-          mode: 'no-cors'
-        }).then(response => {
+        // mode: 'no-cors'
+        fetch(githubTokenUrl+`?client_id=${client_id}&client_secret=${client_secret}&code=${code}`).then(response => {
           return response.text()
         }).then(data => {
+          console.log(data)
           if (data.indexOf('access_token') === -1) {
             // gOauth()
             return
@@ -145,12 +142,13 @@
       }
       
       function getUserWithToken (token) {
-        fetch(githubUserTokenUrl+`?access_token=${token}`, {
-          headers: {
-            'Access-Control-Allow-Origin': '*',
-          },
-          mode: 'no-cors'
-        }).then(response => {
+        // , {
+        //   headers: {
+        //     'Access-Control-Allow-Origin': '*',
+        //   },
+        //   mode: 'no-cors'
+        // }
+        fetch(githubUserTokenUrl+`?access_token=${token}`).then(response => {
           return response.json()
         }).then(data => {
           console.log(data)
