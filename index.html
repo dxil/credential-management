@@ -76,6 +76,7 @@
       const githubUserTokenUrl = 'https://api.github.com/user'
       let cm = new CM()
       let code = location.search.split('code=')[1]
+      console.log(code)
       if (!code) {
         cm.autoSignIn({providers: ['https://www.github.com']}).then((res) => {
           if (!res) {
@@ -135,7 +136,7 @@
           return response.text()
         }).then(data => {
           if (data.indexOf('access_token') === -1) {
-            gOauth()
+            // gOauth()
             return
           }
           let token = data.split('access_token=')[1].split('&')[0]
