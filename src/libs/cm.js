@@ -14,11 +14,11 @@ const utils = {
 
 class CM {
   constructor () {
-    this._isPasswordCredentialSupport = !!window.PasswordCredential
-    this._isFederatedCredentialSupport = !!window.FederatedCredential
+    this.isPasswordCredentialSupport = !!window.PasswordCredential
+    this.isFederatedCredentialSupport = !!window.FederatedCredential
   }
   autoSignIn (opts = {}) {
-    if (!this._isPasswordCredentialSupport && !this._isFederatedCredentialSupport) return utils.returnError({code: -1000, msg: 'not support Credential Management'})
+    if (!this.isPasswordCredentialSupport && !this.isFederatedCredentialSupport) return utils.returnError({code: -1000, msg: 'not support Credential Management'})
 
     this._opts = {
       usePassword: opts.usePassword || true, // 是否使用密码自动登录
@@ -72,7 +72,7 @@ class CM {
     navigator.credentials.preventSilentAccess()
   }
   _registerWithFederated (data) {
-    if (!this._isFederatedCredentialSupport) return utils.returnError({code: -1003, msg: 'not support Federated sign'})
+    if (!this.isFederatedCredentialSupport) return utils.returnError({code: -1003, msg: 'not support Federated sign'})
     if (!data.id || !data.name || !data.provider) return utils.returnError({code: -3, msg: 'register Federated faild'})
 
     let cred = new FederatedCredential({
@@ -86,7 +86,7 @@ class CM {
   }
   // 通过账号密码注册当前账户
   _registerWithPassword (data) {
-    if (!this._isPasswordCredentialSupport) return utils.returnError({code: -1004, msg: 'not support Password sign'})
+    if (!this.isPasswordCredentialSupport) return utils.returnError({code: -1004, msg: 'not support Password sign'})
     if (!data.id || !data.password) return utils.returnError({code: -2, msg: 'register Password faild'})
 
     let cred = new PasswordCredential({id: data.id, password: '123'})
